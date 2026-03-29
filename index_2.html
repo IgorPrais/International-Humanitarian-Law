@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доповідь: МГП та Женевські Конвенції</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --bg: #010103;
+            --p: #7e22ce;
+            --s: #c2410c;
+            --a: #facc15;
+            --c: #06b6d4;
+            --v: #16a34a;
+            
+            --glass: rgba(255, 255, 255, 0.02);
+            --glass-h: rgba(255, 255, 255, 0.05);
+            --glass-p: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
+            --text-m: #ffffff;
+            --text-s: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            background: var(--bg);
+            scrollbar-width: thin;
+            scrollbar-color: var(--p) var(--bg);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-m);
+            overflow-x: hidden;
+            background: var(--bg);
+        }
+
+        .universe {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            background: 
+                radial-gradient(circle at 10% 10%, #1e1b4b 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, #4c1d95 0%, transparent 40%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(150px);
+            animation: orb-flow 25s infinite ease-in-out;
+            opacity: 0.5;
+        }
+
+        .orb-1 { width: 600px; height: 600px; background: var(--p); top: -10%; left: -10%; }
+        .orb-2 { width: 500px; height: 500px; background: var(--s); bottom: -10%; right: -10%; animation-delay: -5s; }
+        .orb-3 { width: 400px; height: 400px; background: var(--a); top: 50%; left: 50%; opacity: 0.2; animation-delay: -10s; }
+
+        @keyframes orb-flow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(100px, 100px) scale(1.1); }
+            66% { transform: translate(-100px, 50px) scale(0.9); }
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            display: flex;
+            gap: 5px;
+            padding: 8px 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-s);
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 10px 20px;
+            border-radius: 100px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        nav a:hover { color: var(--text-m); background: rgba(255,255,255,0.05); }
+        nav a.active {
+            color: #000;
+            background: var(--text-m);
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+
+        section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Фикс центровки: прилипаем по центру */
+            scroll-snap-align: center; 
+            padding: 20px;
+            perspective: 1500px;
+        }
+
+        .pane {
+            width: 100%;
+            max-width: 1200px;
+            height: 80vh;
+            background: var(--glass);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            transform-style: preserve-3d;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 40px 80px rgba(0,0,0,0.7);
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: translateY(100px) rotateX(-10deg);
+            filter: blur(20px);
+            transition: all 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .title-box { overflow: hidden; margin-bottom: 25px; }
+        
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 300;
+            line-height: 0.85;
+            letter-spacing: -4px;
+            background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1 b { font-weight: 700; color: var(--text-m); -webkit-text-fill-color: var(--text-m); }
+        .p-s { color: var(--p); -webkit-text-fill-color: var(--p); text-shadow: 0 0 15px var(--p); }
+        .s-s { color: var(--s); -webkit-text-fill-color: var(--s); text-shadow: 0 0 15px var(--s); }
+        .a-s { color: var(--a); -webkit-text-fill-color: var(--a); text-shadow: 0 0 15px var(--a); }
+        .c-s { color: var(--c); -webkit-text-fill-color: var(--c); text-shadow: 0 0 15px var(--c); }
+        .v-s { color: var(--v); -webkit-text-fill-color: var(--v); text-shadow: 0 0 15px var(--v); }
+
+        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; margin-bottom: 25px; font-weight: 500; }
+        h3 { color: var(--text-m); font-size: 1.4rem; margin-bottom: 15px; }
+
+        p { font-size: 1.15rem; color: var(--text-s); line-height: 1.7; margin-bottom: 20px; font-weight: 300; }
+        b { font-weight: 600; color: var(--text-m); }
+
+        .glass-card {
+            background: var(--glass-h);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 30px;
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--a);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 45px;
+            background: var(--a);
+            color: #000;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 30px rgba(250,204,21,0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(250,204,21,0.6); }
+
+        .grid-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; overflow-y: auto; padding: 10px; }
+
+        .pane-visible { 
+            opacity: 1 !important; 
+            transform: translateY(0) rotateX(0) !important; 
+            filter: blur(0) !important;
+        }
+
+        @media (max-width: 968px) {
+            nav { width: 95%; overflow-x: auto; justify-content: flex-start; padding: 5px 10px; }
+            nav a { padding: 8px 15px; font-size: 0.6rem; letter-spacing: 1px; }
+            .pane { grid-template-columns: 1fr; padding: 30px 20px; height: 85vh; overflow-y: auto; }
+            h1 { font-size: 3.5rem; letter-spacing: -2px; }
+            h2 { font-size: 2.2rem; }
+            .grid-cards { grid-template-columns: 1fr; }
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    </style>
+</head>
+<body>
+
+<div class="universe">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+
+<nav id="navbar">
+    <a href="#hero" class="active">Початок</a>
+    <a href="#vstup">Вступ</a>
+    <a href="#razdel1">1. Конвенції</a>
+    <a href="#razdel2">2. Протоколи</a>
+    <a href="#razdel3">3. Сучасність</a>
+    <a href="#visnovok">Висновок</a>
+</nav>
+
+<section id="hero">
+    <div class="pane pane-visible">
+        <div>
+            <span class="tag">Презентація Доповіді</span>
+            <div class="title-box">
+                <h1><b>ГУМАНІТАРНЕ</b><br>ПРАВО</h1>
+            </div>
+            <p>Женевські конвенції та Додаткові протоколи — фундаментальні основи для збереження людяності під час війни.</p>
+            <div style="margin-top: 40px;">
+                <a href="#vstup" class="btn">Почати доповідь</a>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <div class="glass-card" style="width: 250px; height: 250px; border-radius: 50%; font-size: 5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px var(--p); border-color: var(--p);">⚖️</div>
+        </div>
+    </div>
+</section>
+
+<section id="vstup">
+    <div class="pane">
+        <div>
+            <span class="tag">Вступ</span>
+            <h2 class="p-s">Що таке МГП?</h2>
+            <p><b>Міжнародне гуманітарне право (МГП)</b> — це галузь міжнародного права, яка регулює правила ведення збройних конфліктів.</p>
+            <p>Його головна мета полягає у захисті осіб, що не беруть або перестали брати участь у бойових діях.</p>
+        </div>
+        <div class="glass-card" style="display: flex; flex-direction: column; gap: 15px;">
+            <h3>Головні Принципи</h3>
+            <div class="glass-card">
+                <b>Гуманність</b>
+                <p style="font-size: 0.9rem; margin: 5px 0 0;">Недоторканність людської гідності за будь-яких умов.</p>
+            </div>
+            <div class="glass-card">
+                <b>Обов'язок держав</b>
+                <p style="font-size: 0.9rem; margin: 5px 0 0;">Дотримання норм права навіть у найскладніших умовах війни.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="razdel1">
+    <div class="pane">
+        <div>
+            <span class="tag">Розділ 1</span>
+            <h2 class="s-s">Женевські конвенції 1949 р.</h2>
+            <p>Женевські конвенції складаються з чотирьох окремих договорів, кожен з яких регулює певну сферу.</p>
+            <div class="glass-card" style="border-color: var(--s);">
+                <p style="color: #fff; margin: 0; font-size: 0.95rem;"><b>Універсальність:</b> Їх учасниками є майже всі держави світу, що робить їх одним із найпоширеніших міжнародних договорів.</p>
+            </div>
+        </div>
+        <div class="grid-cards">
+            <div class="glass-card"><b>Перша (I)</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Захист поранених і хворих у <b>сухопутних</b> арміях.</p></div>
+            <div class="glass-card"><b>Друга (II)</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Захист поранених і хворих на <b>морі</b>.</p></div>
+            <div class="glass-card"><b>Третя (III)</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Правила поводження з <b>військовополоненими</b>.</p></div>
+            <div class="glass-card"><b>Четверта (IV)</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Захист <b>цивільного населення</b> під час війни.</p></div>
+        </div>
+    </div>
+</section>
+
+<section id="razdel2">
+    <div class="pane">
+        <div>
+            <span class="tag">Розділ 2</span>
+            <h2 class="c-s">Додаткові протоколи</h2>
+            <p>Прийняті з метою уточнення та розширення положень конвенцій, враховуючи нові реалії конфліктів XX століття.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div class="glass-card" style="border-left: 5px solid var(--c);">
+                <h3>Протокол I (1977)</h3>
+                <p style="font-size: 0.9rem;">Міжнародні конфлікти. Заборона нападів на цивільні об’єкти, охорона природи та культури.</p>
+            </div>
+            <div class="glass-card" style="border-left: 5px solid var(--c);">
+                <h3>Протокол II (1977)</h3>
+                <p style="font-size: 0.9rem;">Не-міжнародні (внутрішні) конфлікти. Гарантії прав осіб, позбавлених свободи.</p>
+            </div>
+            <div class="glass-card" style="border-left: 5px solid var(--a); background: rgba(250, 204, 21, 0.05);">
+                <h3>Протокол III (2005)</h3>
+                <p style="font-size: 0.9rem;">Новий символ — <b>Червоний Кристал</b> — для уникнення політичних чи релігійних асоціацій.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="razdel3">
+    <div class="pane" style="grid-template-columns: 1fr; height: auto; text-align: center; padding: 50px;">
+        <span class="tag">Розділ 3</span>
+        <h2 class="a-s">Значення та застосування</h2>
+        <p style="max-width: 800px; margin: 0 auto 30px;">Положення МГП застосовуються у сучасних війнах, включно з конфліктом в Україні. Дотримання норм МГП — це і юридичний, і моральний обов’язок держав.</p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="glass-card"><b>Правила</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Для цивільних, полонених, поранених.</p></div>
+            <div class="glass-card" style="border-color: var(--s);"><b class="s-s">Злочини</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Порушення — це воєнні злочини.</p></div>
+            <div class="glass-card"><b>Гідність</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Сприяє збереженню людяності.</p></div>
+        </div>
+    </div>
+</section>
+
+<section id="visnovok">
+    <div class="pane" style="background: radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.1), transparent 60%);">
+        <div>
+            <span class="tag">Висновок</span>
+            <h2 class="v-s">Основа МГП</h2>
+            <p>Женевські конвенції та Додаткові протоколи становлять <b>фундамент міжнародного гуманітарного права</b>.</p>
+            <div class="glass-card" style="margin-top: 30px;">
+                <p style="color: white; margin: 0; font-size: 0.9rem;">Дотримання цих норм є обов’язком кожної держави.</p>
+            </div>
+        </div>
+        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-around; border-color: var(--v); text-align: center;">
+            <p style="color: white; font-size: 1.25rem;">Тільки через поєднання правових механізмів та гуманності можна мінімізувати страждання людей.</p>
+            <p style="font-size: 0.8rem; color: var(--text-s); letter-spacing: 2px;">PRESENTER IGOR • 2026</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    // Исправленная логика подсветки для центрированных секций
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            // Берем центр секции для более точного переключения
+            if (pageYOffset >= (sectionTop - window.innerHeight / 2)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href').includes(current)) {
+                a.classList.add('active');
+            }
+        });
+    });
+
+    if (window.innerWidth > 968) {
+        document.querySelectorAll('.pane').forEach(pane => {
+            pane.addEventListener('mousemove', (e) => {
+                const paneRect = pane.getBoundingClientRect();
+                const rotateX = ((e.clientY - (paneRect.top + paneRect.height / 2)) / (paneRect.height / 2)) * 3;
+                const rotateY = -((e.clientX - (paneRect.left + paneRect.width / 2)) / (paneRect.width / 2)) * 3;
+                pane.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            pane.addEventListener('mouseleave', () => {
+                pane.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelector('.pane').classList.add('pane-visible');
+            }
+        });
+    }, { threshold: 0.4 }); // Чуть снизил порог для надежности
+
+    sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>
