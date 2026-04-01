@@ -70,7 +70,7 @@
             66% { transform: translate(-100px, 50px) scale(0.9); }
         }
 
-        /* --- ФИКСАЦИЯ ГОРИЗОНТАЛЬНОЙ НАВИГАЦИИ (ЛЕНТА) --- */
+        /* --- НАВІГАЦІЯ (ФІКС ДЛЯ МОБІЛЬНИХ) --- */
         nav {
             position: fixed;
             top: 20px;
@@ -82,21 +82,15 @@
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid var(--border);
             border-radius: 100px;
-            
             display: flex;
-            flex-direction: row; /* Строго в ряд */
             align-items: center;
-            justify-content: flex-start;
-            
             padding: 6px 10px;
-            width: auto;
-            max-width: 90%; 
-            
-            overflow-x: auto; /* Включаем горизонтальный скролл */
-            white-space: nowrap; /* Запрещаем перенос строк */
-            scrollbar-width: none; /* Скрываем полосу в Firefox */
-            -webkit-overflow-scrolling: touch; /* Плавность на iOS */
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            width: auto;
+            max-width: 90%;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         nav::-webkit-scrollbar { display: none; }
@@ -111,8 +105,8 @@
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             text-transform: uppercase;
             letter-spacing: 1px;
-            flex-shrink: 0; /* Запрещаем кнопкам сжиматься */
-            display: inline-block;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         nav a:hover { color: var(--text-m); background: rgba(255,255,255,0.05); }
@@ -122,7 +116,6 @@
             box-shadow: 0 0 15px rgba(255,255,255,0.3);
         }
 
-        /* --- СЕКЦИИ И ГРАФИКА --- */
         section {
             height: 100vh;
             width: 100%;
@@ -241,11 +234,9 @@
             filter: blur(0) !important;
         }
 
-        /* --- ПОВНА МОБІЛЬНА АДАПТАЦІЯ --- */
+        /* --- МОБІЛЬНА АДАПТАЦІЯ --- */
         @media (max-width: 968px) {
-            nav { width: 92%; top: 15px; }
-            nav a { padding: 8px 14px; font-size: 0.6rem; }
-
+            nav { width: 95%; border-radius: 30px; }
             .pane { 
                 grid-template-columns: 1fr; 
                 padding: 30px 20px; 
@@ -256,19 +247,14 @@
                 gap: 30px;
                 margin-top: 40px;
             }
-            
-            h1 { font-size: 3.2rem; letter-spacing: -2px; text-align: center; }
+            h1 { font-size: 3.2rem; text-align: center; }
             h2 { font-size: 2rem; text-align: center; }
             p { font-size: 1rem; text-align: center; }
-            
-            .title-box { text-align: center; }
+            .title-box, .btn-box { text-align: center; }
             .tag { display: block; width: fit-content; margin: 0 auto 15px; }
-            .btn-box { text-align: center; }
-            
-            .grid-cards { grid-template-columns: 1fr; gap: 15px; overflow-y: visible; }
-            
+            .grid-cards { grid-template-columns: 1fr; overflow-y: visible; }
             #hero .pane div:last-child { order: -1; margin-bottom: 20px; }
-            #hero .glass-card { width: 150px !important; height: 150px !important; font-size: 3rem !important; margin: 0 auto; }
+            #hero .glass-card { width: 150px !important; height: 150px !important; font-size: 3rem !important; }
         }
 
         ::-webkit-scrollbar { width: 4px; }
@@ -321,14 +307,8 @@
         </div>
         <div class="glass-card" style="display: flex; flex-direction: column; gap: 15px;">
             <h3>Головні Принципи</h3>
-            <div class="glass-card">
-                <b>Гуманність</b>
-                <p style="font-size: 0.9rem; margin: 5px 0 0;">Недоторканність людської гідності за будь-яких умов.</p>
-            </div>
-            <div class="glass-card">
-                <b>Обов'язок держав</b>
-                <p style="font-size: 0.9rem; margin: 5px 0 0;">Дотримання норм права навіть у найскладніших умовах війни.</p>
-            </div>
+            <div class="glass-card"><b>Гуманність</b><p style="font-size: 0.9rem; margin: 5px 0 0;">Недоторканність людської гідності за будь-яких умов.</p></div>
+            <div class="glass-card"><b>Обов'язок держав</b><p style="font-size: 0.9rem; margin: 5px 0 0;">Дотримання норм права навіть у найскладніших умовах війни.</p></div>
         </div>
     </div>
 </section>
@@ -340,14 +320,14 @@
             <h2 class="s-s">Женевські конвенції 1949 р.</h2>
             <p>Женевські конвенції складаються з чотирьох окремих договорів, кожен з яких регулює певну сферу.</p>
             <div class="glass-card" style="border-color: var(--s);">
-                <p style="color: #fff; margin: 0; font-size: 0.95rem;"><b>Універсальність:</b> Їх учасниками є майже всі держави світу, що робить їх одним із найпоширеніших міжнародних договорів.</p>
+                <p style="color: #fff; margin: 0; font-size: 0.95rem;"><b>Універсальність:</b> Їх учасниками є майже всі держави світу.</p>
             </div>
         </div>
         <div class="grid-cards">
-            <div class="glass-card"><b>Перша (I)</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Захист поранених і хворих у <b>сухопутних</b> арміях.</p></div>
-            <div class="glass-card"><b>Друга (II)</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Захист поранених і хворих на <b>морі</b>.</p></div>
-            <div class="glass-card"><b>Третя (III)</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Правила поводження з <b>військовополоненими</b>.</p></div>
-            <div class="glass-card"><b>Четверта (IV)</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Захист <b>цивільного населення</b> під час війни.</p></div>
+            <div class="glass-card"><b>Перша (I)</b><p style="font-size: 0.8rem;">Захист поранених у <b>сухопутних</b> арміях.</p></div>
+            <div class="glass-card"><b>Друга (II)</b><p style="font-size: 0.8rem;">Захист поранених на <b>морі</b>.</p></div>
+            <div class="glass-card"><b>Третя (III)</b><p style="font-size: 0.8rem;">Правила поводження з <b>військовополоненими</b>.</p></div>
+            <div class="glass-card"><b>Четверта (IV)</b><p style="font-size: 0.8rem;">Захист <b>цивільного населення</b>.</p></div>
         </div>
     </div>
 </section>
@@ -357,21 +337,12 @@
         <div>
             <span class="tag">Розділ 2</span>
             <h2 class="c-s">Додаткові протоколи</h2>
-            <p>Прийняті з метою уточнення та розширення положень конвенцій, враховуючи нові реалії конфліктів XX століття.</p>
+            <p>Прийняті з метою уточнення та розширення положень конвенцій, враховуючи нові реалії конфліктів.</p>
         </div>
         <div style="display: flex; flex-direction: column; gap: 15px;">
-            <div class="glass-card" style="border-left: 5px solid var(--c);">
-                <h3>Протокол I (1977)</h3>
-                <p style="font-size: 0.9rem;">Міжнародні конфлікти. Заборона нападів на цивільні об’єкти, охорона природи та культури.</p>
-            </div>
-            <div class="glass-card" style="border-left: 5px solid var(--c);">
-                <h3>Протокол II (1977)</h3>
-                <p style="font-size: 0.9rem;">Не-міжнародні (внутрішні) конфлікти. Гарантії прав осіб, позбавлених свободи.</p>
-            </div>
-            <div class="glass-card" style="border-left: 5px solid var(--a); background: rgba(250, 204, 21, 0.05);">
-                <h3>Протокол III (2005)</h3>
-                <p style="font-size: 0.9rem;">Новий символ — <b>Червоний Кристал</b> — для уникнення політичних чи реліжниїх асоціацій.</p>
-            </div>
+            <div class="glass-card" style="border-left: 5px solid var(--c);"><h3>Протокол I (1977)</h3><p style="font-size: 0.9rem;">Міжнародні конфлікти. Охорона природи та культури.</p></div>
+            <div class="glass-card" style="border-left: 5px solid var(--c);"><h3>Протокол II (1977)</h3><p style="font-size: 0.9rem;">Внутрішні конфлікти. Гарантії прав осіб.</p></div>
+            <div class="glass-card" style="border-left: 5px solid var(--a); background: rgba(250, 204, 21, 0.05);"><h3>Протокол III (2005)</h3><p style="font-size: 0.9rem;">Новий символ — <b>Червоний Кристал</b>.</p></div>
         </div>
     </div>
 </section>
@@ -380,11 +351,11 @@
     <div class="pane" style="grid-template-columns: 1fr; height: auto; text-align: center; padding: 50px;">
         <span class="tag">Розділ 3</span>
         <h2 class="a-s">Значення та застосування</h2>
-        <p style="max-width: 800px; margin: 0 auto 30px;">Положення МГП застосовуються у сучасних війнах, включно з конфліктом в Україні. Дотримання норм МГП — це і юридичний, і моральний обов’язок держав.</p>
+        <p style="max-width: 800px; margin: 0 auto 30px;">Положення МГП застосовуються у сучасних війнах, включно з конфліктом в Україні.</p>
         <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-            <div class="glass-card"><b>Правила</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Для цивільних, полонених, поранених.</p></div>
-            <div class="glass-card" style="border-color: var(--s);"><b class="s-s">Злочини</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Порушення — це воєнні злочини.</p></div>
-            <div class="glass-card"><b>Гідність</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Сприяє збереженню людяності.</p></div>
+            <div class="glass-card"><b>Правила</b><p style="font-size: 0.8rem;">Для цивільних та полонених.</p></div>
+            <div class="glass-card" style="border-color: var(--s);"><b class="s-s">Злочини</b><p style="font-size: 0.8rem;">Порушення — це воєнні злочини.</p></div>
+            <div class="glass-card"><b>Гідність</b><p style="font-size: 0.8rem;">Збереження людяності.</p></div>
         </div>
     </div>
 </section>
@@ -394,13 +365,11 @@
         <div>
             <span class="tag">Висновок</span>
             <h2 class="v-s">Основа МГП</h2>
-            <p>Женевські конвенції та Додаткові протоколи становлять <b>фундамент міжнародного гуманітарного права</b>.</p>
-            <div class="glass-card" style="margin-top: 30px;">
-                <p style="color: white; margin: 0; font-size: 0.9rem;">Дотримання цих норм є обов’язком кожної держави.</p>
-            </div>
+            <p>Женевські конвенції та Додаткові протоколи становлять фундамент права.</p>
+            <div class="glass-card" style="margin-top: 30px;"><p style="color: white; margin: 0; font-size: 0.9rem;">Дотримання цих норм є обов’язком держав.</p></div>
         </div>
         <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-around; border-color: var(--v); text-align: center;">
-            <p style="color: white; font-size: 1.25rem;">Тільки через поєднання правових механізмів та гуманності можна мінімізувати страждання людей.</p>
+            <p style="color: white; font-size: 1.25rem;">Тільки через поєднання права та гуманності можна мінімізувати страждання.</p>
             <p style="font-size: 0.8rem; color: var(--text-s); letter-spacing: 2px;">PRESENTER IGOR • 2026</p>
         </div>
     </div>
@@ -409,6 +378,18 @@
 <script>
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('nav a');
+
+    // ФІКС ДЛЯ ТЕЛЕФОНІВ: Плавний перехід при кліку
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    });
 
     window.addEventListener('scroll', () => {
         let current = '';
@@ -423,7 +404,6 @@
             a.classList.remove('active');
             if (a.getAttribute('href').includes(current)) {
                 a.classList.add('active');
-                // Плавное центрирование активной кнопки в навигации
                 a.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }
         });
@@ -437,9 +417,7 @@
                 const rotateY = -((e.clientX - (paneRect.left + paneRect.width / 2)) / (paneRect.width / 2)) * 3;
                 pane.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
-            pane.addEventListener('mouseleave', () => {
-                pane.style.transform = `rotateX(0deg) rotateY(0deg)`;
-            });
+            pane.addEventListener('mouseleave', () => { pane.style.transform = `rotateX(0deg) rotateY(0deg)`; });
         });
     }
 
@@ -453,6 +431,5 @@
 
     sections.forEach(section => observer.observe(section));
 </script>
-
 </body>
 </html>
