@@ -86,6 +86,8 @@
             gap: 5px;
             padding: 8px 15px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            width: auto;
+            max-width: 95%;
         }
 
         nav a {
@@ -114,7 +116,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Фикс центровки: прилипаем по центру */
             scroll-snap-align: center; 
             padding: 20px;
             perspective: 1500px;
@@ -227,13 +228,43 @@
             filter: blur(0) !important;
         }
 
+        /* --- ПОВНА МОБІЛЬНА АДАПТАЦІЯ --- */
         @media (max-width: 968px) {
-            nav { width: 95%; overflow-x: auto; justify-content: flex-start; padding: 5px 10px; }
-            nav a { padding: 8px 15px; font-size: 0.6rem; letter-spacing: 1px; }
-            .pane { grid-template-columns: 1fr; padding: 30px 20px; height: 85vh; overflow-y: auto; }
-            h1 { font-size: 3.5rem; letter-spacing: -2px; }
-            h2 { font-size: 2.2rem; }
-            .grid-cards { grid-template-columns: 1fr; }
+            nav { 
+                width: 92%; 
+                overflow-x: auto; 
+                justify-content: flex-start; 
+                padding: 6px 10px; 
+                top: 10px;
+                scrollbar-width: none;
+            }
+            nav::-webkit-scrollbar { display: none; }
+            nav a { padding: 8px 12px; font-size: 0.6rem; letter-spacing: 1px; }
+
+            .pane { 
+                grid-template-columns: 1fr; 
+                padding: 30px 20px; 
+                height: auto; 
+                min-height: 80vh;
+                max-height: 85vh;
+                overflow-y: auto; 
+                gap: 30px;
+                margin-top: 40px;
+            }
+            
+            h1 { font-size: 3.2rem; letter-spacing: -2px; text-align: center; }
+            h2 { font-size: 2rem; text-align: center; }
+            p { font-size: 1rem; text-align: center; }
+            
+            .title-box { text-align: center; }
+            .tag { display: block; width: fit-content; margin: 0 auto 15px; }
+            .btn-box { text-align: center; }
+            
+            .grid-cards { grid-template-columns: 1fr; gap: 15px; overflow-y: visible; }
+            .glass-card { padding: 20px; }
+            
+            #hero .pane div:last-child { order: -1; margin-bottom: 20px; }
+            #hero .glass-card { width: 150px !important; height: 150px !important; font-size: 3rem !important; margin: 0 auto; }
         }
 
         ::-webkit-scrollbar { width: 4px; }
@@ -267,7 +298,7 @@
                 <h1><b>ГУМАНІТАРНЕ</b><br>ПРАВО</h1>
             </div>
             <p>Женевські конвенції та Додаткові протоколи — фундаментальні основи для збереження людяності під час війни.</p>
-            <div style="margin-top: 40px;">
+            <div class="btn-box" style="margin-top: 40px;">
                 <a href="#vstup" class="btn">Почати доповідь</a>
             </div>
         </div>
@@ -347,7 +378,7 @@
         <span class="tag">Розділ 3</span>
         <h2 class="a-s">Значення та застосування</h2>
         <p style="max-width: 800px; margin: 0 auto 30px;">Положення МГП застосовуються у сучасних війнах, включно з конфліктом в Україні. Дотримання норм МГП — це і юридичний, і моральний обов’язок держав.</p>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+        <div class="grid-cards" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
             <div class="glass-card"><b>Правила</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Для цивільних, полонених, поранених.</p></div>
             <div class="glass-card" style="border-color: var(--s);"><b class="s-s">Злочини</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Порушення — це воєнні злочини.</p></div>
             <div class="glass-card"><b>Гідність</b><p style="font-size: 0.8rem; margin: 5px 0 0;">Сприяє збереженню людяності.</p></div>
@@ -376,12 +407,10 @@
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('nav a');
 
-    // Исправленная логика подсветки для центрированных секций
     window.addEventListener('scroll', () => {
         let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            // Берем центр секции для более точного переключения
             if (pageYOffset >= (sectionTop - window.innerHeight / 2)) {
                 current = section.getAttribute('id');
             }
@@ -415,7 +444,7 @@
                 entry.target.querySelector('.pane').classList.add('pane-visible');
             }
         });
-    }, { threshold: 0.4 }); // Чуть снизил порог для надежности
+    }, { threshold: 0.2 });
 
     sections.forEach(section => observer.observe(section));
 </script>
